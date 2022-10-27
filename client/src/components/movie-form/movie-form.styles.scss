@@ -1,0 +1,23 @@
+.movie-form-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  form {
+    width: 50%;
+    box-shadow: 0.5px 0.5px 0.5px 0.5px #000001;
+    .actor_list {
+      .actor {
+        background-color: rgb(182, 177, 177);
+      }
+    }
+    .actor_search_list {
+      max-height: 3rem;
+      overflow-y: hidden;
+      .actor {
+        cursor: pointer;
+      }
+    }
+  }
+}

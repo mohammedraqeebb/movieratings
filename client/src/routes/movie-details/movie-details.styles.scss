@@ -1,0 +1,19 @@
+.movie-details-wrapper {
+  .movie-details-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    .image {
+      width: 50%;
+      height: 50%;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+    .actors-list {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
