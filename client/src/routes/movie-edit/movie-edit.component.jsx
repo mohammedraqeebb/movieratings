@@ -120,8 +120,8 @@ const MovieEdit = () => {
       method: 'post',
       body: actorFormFields,
       onSuccess: () => {
-        setShowActorForm(false);
-        setShowMovieForm(true);
+        setShowMovieForm();
+        setActorFormFields(INITIAL_ACTOR_FORM_FIELDS);
       },
     });
 
@@ -131,8 +131,8 @@ const MovieEdit = () => {
       method: 'post',
       body: producerFormFields,
       onSuccess: () => {
-        setShowProducerForm(false);
-        setShowMovieForm(true);
+        setShowMovieForm();
+        setProducerFormFields(INITIAL_PRODUCER_FORM_FIELDS);
       },
     });
   useEffect(() => {

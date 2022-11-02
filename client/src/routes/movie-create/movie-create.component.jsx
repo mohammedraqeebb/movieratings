@@ -76,9 +76,8 @@ const MovieCreate = () => {
       method: 'post',
       body: actorFormFields,
       onSuccess: () => {
+        setShowMovieForm();
         setActorFormFields(INITIAL_ACTOR_FORM_FIELDS);
-        setShowActorForm(false);
-        setShowMovieForm(true);
       },
     });
 
@@ -101,9 +100,8 @@ const MovieCreate = () => {
       method: 'post',
       body: producerFormFields,
       onSuccess: () => {
+        setShowMovieForm();
         setProducerFormFields(INITIAL_PRODUCER_FORM_FIELDS);
-        setShowProducerForm(false);
-        setShowMovieForm(true);
       },
     });
   useEffect(() => {
