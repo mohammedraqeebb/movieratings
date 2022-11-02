@@ -1,11 +1,29 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import './navbar.styles.scss';
 import { Link, Outlet } from 'react-router-dom';
 import './navbar.styles.scss';
+import useRequest from '../../hooks/use-request';
+import { useEffect, memo } from 'react';
+import { signin } from '../../features/user/user-slice';
 
 const Navbar = () => {
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const isSignedIn = user.isSignedIn;
+  const { doRequest, errors } = useRequest({
+    url: 'http://localhost:5000/api/currentuser',
+    method: 'post',
+    body: {},
+    onSuccess: (data) => {
+      if (data.currentUser) {
+        dispatch(signin(data.currentUser));
+      }
+    },
+  });
+
+  useEffect(() => {
+    doRequest();
+  }, []);
 
   return (
     <>

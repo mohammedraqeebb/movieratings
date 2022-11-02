@@ -1,10 +1,12 @@
 .movie-details-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   .movie-details-container {
+    max-width: 60rem;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     .image {
-      width: 50%;
-      height: 50%;
       img {
         height: 100%;
         width: 100%;

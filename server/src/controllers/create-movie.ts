@@ -71,6 +71,9 @@ export const createMovie = async (req: Request, res: Response) => {
     user: req.currentUser!.id,
   });
   await movie.save();
+  if (actors.length === 0) {
+    throw new BadRequestError('actors list cannot be empty');
+  }
 
   for (const actor of actors) {
     await addMovieToDocument('actor', actor, movie._id);

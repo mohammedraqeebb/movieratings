@@ -36,7 +36,7 @@ const useRequest = ({ url, method, body, onSuccess }) => {
     setTimeout(() => {
 
       setErrors(null);
-    }, 2000);
+    }, 5000);
   }
   return { doRequest, errors };
 }

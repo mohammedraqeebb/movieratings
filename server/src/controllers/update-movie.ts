@@ -45,6 +45,9 @@ export const updateMovie = async (req: Request, res: Response) => {
   }
 
   const { name, yearOfRelease, plot, poster, actors, producer } = req.body;
+  if (actors.length === 0) {
+    throw new BadRequestError('actor list cannot be empty');
+  }
 
   const oldActorsList = existingMovie.actors.map((id) => id.toString());
   const oldProducer = existingMovie.producer.toString();

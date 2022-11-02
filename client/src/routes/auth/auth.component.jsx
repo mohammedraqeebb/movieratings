@@ -13,7 +13,7 @@ const formFields = {
   password: '',
 };
 
-const Auth = ({ currentUser }) => {
+const Auth = ({}) => {
   const [signupShow, setSignupShow] = useState(true);
   const navigate = useNavigate();
 

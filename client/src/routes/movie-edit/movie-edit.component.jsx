@@ -11,6 +11,7 @@ const INITIAL_MOVIE_FORM_FIELDS = {
   name: '',
   yearOfRelease: '',
   plot: '',
+  poster: '',
   actors: [],
   producer: {},
 };
@@ -26,12 +27,19 @@ const INITIAL_PRODUCER_FORM_FIELDS = {
   gender: '',
   bio: '',
 };
+const INITIAL_SHOW_FORM_STATE = {
+  showMovieForm: true,
+  showActorForm: false,
+  showProducerForm: false,
+};
 
 const MovieEdit = () => {
   const { movieId } = useParams();
   const [movieFormFields, setMovieFormFields] = useState(
     INITIAL_MOVIE_FORM_FIELDS
   );
+  const { name, yearOfRelease, plot, poster, actors, producer } =
+    movieFormFields;
   const { doRequest: getMovieDetailsRequest, errors: getMovieDetailsError } =
     useRequest({
       url: `http://localhost:5000/api/movie/${movieId}`,
@@ -55,7 +63,22 @@ const MovieEdit = () => {
         });
       },
     });
-  console.log(movieFormFields);
+
+  const { doRequest: editMovieRequest, errors: movieErrors } = useRequest({
+    url: `http://localhost:5000/api/movie/${movieId}`,
+    method: 'put',
+
+    body: {
+      name,
+      yearOfRelease,
+      plot,
+      poster,
+      actors: actors.map((actor) => actor.id),
+      producer: producer.id,
+    },
+    onSuccess: () => navigate('/'),
+  });
+
   useEffect(() => {
     getMovieDetailsRequest();
   }, []);
@@ -70,9 +93,7 @@ const MovieEdit = () => {
   const [producerSearchField, setProducerSearchField] = useState('');
   const [actorSearchList, setActorSearchList] = useState([]);
   const [producerSearchList, setProducerSearchList] = useState([]);
-  const [showActorForm, setShowActorForm] = useState(false);
-  const [showProducerForm, setShowProducerForm] = useState(false);
-  const [showMovieForm, setShowMovieForm] = useState(true);
+  const [showForm, setShowForm] = useState(INITIAL_SHOW_FORM_STATE);
 
   const navigate = useNavigate();
   const { doRequest: searchActorRequest, errors: searchActorErrors } =
@@ -103,23 +124,7 @@ const MovieEdit = () => {
         setShowMovieForm(true);
       },
     });
-  const { name, yearOfRelease, plot, poster, actors, producer } =
-    movieFormFields;
-  const { doRequest: editMovieRequest, errors: createMovieErrors } = useRequest(
-    {
-      url: `http://localhost:5000/api/movie/${movieId}`,
-      method: 'put',
-      body: {
-        name,
-        yearOfRelease,
-        plot,
-        poster,
-        actors: actors.map((actor) => actor.id),
-        producer: producer.id,
-      },
-      onSuccess: () => navigate('/'),
-    }
-  );
+
   const { doRequest: createProducerRequest, errors: createProducerErrors } =
     useRequest({
       url: 'http://localhost:5000/api/producer',
@@ -205,6 +210,28 @@ const MovieEdit = () => {
     event.preventDefault();
     editMovieRequest();
   };
+  const setShowMovieForm = () => {
+    setShowForm({
+      showMovieForm: true,
+      showActorForm: false,
+      showProducerForm: false,
+    });
+  };
+  const setShowActorForm = () => {
+    setShowForm({
+      showMovieForm: false,
+      showActorForm: true,
+      showProducerForm: false,
+    });
+  };
+  const setShowProducerForm = () => {
+    setShowForm({
+      showMovieForm: false,
+      showActorForm: false,
+      showProducerForm: true,
+    });
+  };
+  const { showMovieForm, showActorForm, showProducerForm } = showForm;
   return (
     <div>
       {showMovieForm && (
@@ -227,21 +254,40 @@ const MovieEdit = () => {
           setShowActorForm={setShowActorForm}
           setShowMovieForm={setShowMovieForm}
           setShowProducerForm={setShowProducerForm}
+          movieErrors={movieErrors}
         />
       )}
       {showActorForm && (
-        <ActorForm
-          actorFormFields={actorFormFields}
-          actorFieldsChangeHandler={actorFieldsChangeHandler}
-          handleCreateActorSubmit={handleCreateActorSubmit}
-        />
+        <div>
+          <button
+            onClick={() => {
+              setShowMovieForm();
+            }}
+          >
+            show movie form
+          </button>
+          <ActorForm
+            actorFormFields={actorFormFields}
+            actorFieldsChangeHandler={actorFieldsChangeHandler}
+            handleCreateActorSubmit={handleCreateActorSubmit}
+          />
+        </div>
       )}
       {showProducerForm && (
-        <ProducerForm
-          producerFormFields={producerFormFields}
-          producerFieldsChangeHandler={producerFieldsChangeHandler}
-          handleCreateProducerSubmit={handleCreateProducerSubmit}
-        />
+        <div>
+          <button
+            onClick={() => {
+              setShowMovieForm();
+            }}
+          >
+            show movie form
+          </button>
+          <ProducerForm
+            producerFormFields={producerFormFields}
+            producerFieldsChangeHandler={producerFieldsChangeHandler}
+            handleCreateProducerSubmit={handleCreateProducerSubmit}
+          />
+        </div>
       )}
     </div>
   );

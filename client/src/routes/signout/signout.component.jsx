@@ -12,7 +12,7 @@ const Signout = () => {
     method: 'put',
     onSuccess: () => {
       dispatch(signout());
-      navigate(-1);
+      navigate('/');
     },
   });
   useEffect(() => {

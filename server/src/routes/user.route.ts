@@ -25,9 +25,6 @@ userRouter.post(
   validateRequest,
   signup
 );
-userRouter.get('/hello', (req, res) => {
-  res.send('hello there');
-});
 
 userRouter.post(
   '/signin',
@@ -43,6 +40,6 @@ userRouter.post(
   signin
 );
 userRouter.put('/signout', signout);
-userRouter.get('/currentuser', getCurrentUser);
+userRouter.post('/currentuser', getCurrentUser);
 
 export { userRouter };

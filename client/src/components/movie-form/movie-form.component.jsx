@@ -22,6 +22,7 @@ const MovieForm = ({
   setShowActorForm,
   setShowMovieForm,
   setShowProducerForm,
+  movieErrors,
 }) => {
   const { name, yearOfRelease, plot, poster, actors, producer } =
     movieFormFields;
@@ -98,8 +99,7 @@ const MovieForm = ({
         <p
           style={{ fontSize: 8, letterSpacing: -0.5, cursor: 'pointer' }}
           onClick={() => {
-            setShowActorForm(true);
-            setShowMovieForm(false);
+            setShowActorForm();
           }}
         >
           didn't find actor?, create actor profile
@@ -142,12 +142,12 @@ const MovieForm = ({
             marginBottom: 10,
           }}
           onClick={() => {
-            setShowProducerForm(true);
-            setShowMovieForm(false);
+            setShowProducerForm();
           }}
         >
           didn't find producer?, create producer profile
         </p>
+        <div className="errors">{movieErrors}</div>
         <button>submit</button>
       </form>
     </div>

@@ -4,7 +4,7 @@
   padding: 0;
   list-style: none;
 
-  font-family: 'Open Sans', sans-serif;
+  font-family: Ubuntu, 'serif';
 }
 html {
   font-size: 62.5%;
@@ -15,4 +15,10 @@ html {
 a {
   text-decoration: none;
   color: black;
+}
+.errors {
+  width: inherit;
+  text-align: center;
+  font-size: 0.6rem;
+  color: red;
 }
